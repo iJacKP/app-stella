@@ -16,8 +16,8 @@ export const SidebarData = [
         cName:'nav-text'
     },
     {
-        title:'Simulador',
-        path:'/simulator',
+        title:'Grade Horária',
+        path:'/scheduler',
         icon: <BiIcons.BiCalendar />,
         cName:'nav-text'
     },

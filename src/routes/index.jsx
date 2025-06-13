@@ -7,7 +7,7 @@ import { RegisterSubject } from "../pages/admin/RegisterSubject"
 import { Management } from "../pages/admin/Management"
 import { Trails } from "../pages/Trails"
 import { Subjects } from "../pages/Subjects"
-import { Simulator } from "../pages/Simulator"
+import { Scheduler } from "../pages/Scheduler/index.jsx"
 import { Information } from "../pages/Information"
 import { SistemasMultimidia } from "../pages/Trails/SistemasMultimidia"
 import { Jogos } from "../pages/Trails/Jogos"
@@ -47,10 +47,10 @@ export function Rotas() {
     />
 
     <Route 
-        path="/simulator" 
+        path="/scheduler" 
         element={
         <PrivateRoute>  
-            <Simulator /> 
+            <Scheduler /> 
         </PrivateRoute>
         } 
     />
@@ -81,7 +81,6 @@ export function Rotas() {
         </PrivateRoute>
         } 
     />
-
 
     <Route 
         path="/cadastrar_cadeira" 
