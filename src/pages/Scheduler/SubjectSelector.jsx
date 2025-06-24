@@ -16,6 +16,7 @@ export default function SubjectSelector({ onSelect, onOpenDetails, selectedSubje
 const filteredSubjects = subjects.filter(subject => {
   const matchesText = subject.name.toLowerCase().includes(search.toLowerCase())
     || subject.track.toLowerCase().includes(search.toLowerCase())
+    || subject.subjectCode.toLowerCase().includes(search.toLowerCase())
     || subject.teacher.toLowerCase().includes(search.toLowerCase());
 
   const matchesTrack = trackFilter === '' || subject.track === trackFilter;
@@ -40,7 +41,7 @@ const filteredSubjects = subjects.filter(subject => {
 
       <Form.Control
         type="text"
-        placeholder="Pesquisar disciplina, trilha ou professor..."
+        placeholder="Pesquisar disciplina por código, nome, trilha ou professor..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         className="mb-4"
@@ -54,7 +55,7 @@ const filteredSubjects = subjects.filter(subject => {
                 type="checkbox"
                 label={
                   <div>
-                    <strong>{subject.name}</strong>
+                    <strong>{subject.subjectCode} - {subject.name}</strong>
                     <br />
                     <small>Trilha: {subject.track}</small><br />
                     <small>Professor: {subject.teacher}</small><br />
