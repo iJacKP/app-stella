@@ -140,7 +140,7 @@ const handleExportPDF = () => {
   <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
-          <Modal.Title>{modalSubject?.name}</Modal.Title>
+          <Modal.Title>{modalSubject?.subjectCode} - {modalSubject?.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p><strong>Trilha:</strong> {modalSubject?.track}</p>
