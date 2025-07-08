@@ -29,8 +29,8 @@
 
 .navbar-content {
     transition: 400ms;
-    margin-left: 10px;
-    width: 95%;
+    padding: 5px;
+    width: 100%;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
@@ -40,8 +40,8 @@
 
 .navbar-content.active{
     transition: 400ms;
-     margin-left: 270px;
-     width: 95%;
+    margin-left: 270px;
+    width: 95%;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
