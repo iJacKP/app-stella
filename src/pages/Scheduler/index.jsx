@@ -36,7 +36,7 @@ export function Scheduler() {
       );
 
       if (conflict) {
-        setToastMessage(`Conflito detectado entre "${subject.name}" e "${conflict.name}".`);
+        setToastMessage(`Conflito detectado entre "${subject.subjectCode} -${subject.name}" e "${conflict.subjectCode} ${conflict.name}".`);
         setShowToast(true);
         return;
       }
@@ -189,12 +189,14 @@ export function Scheduler() {
       </Row>
 
       <ToastContainer position="top-end" className="p-3" style={{ zIndex: 9999 }}>
-        <Toast bg="danger" show={showToast} onClose={() => setShowToast(false)} delay={4000} autohide>
-          <Toast.Header>
-            <strong className="me-auto">Conflito de Horário</strong>
-          </Toast.Header>
-          <Toast.Body className="text-white">{toastMessage}</Toast.Body>
-        </Toast>
+      <Toast className="toast-purple" show={showToast} onClose={() => setShowToast(false)} delay={4000} autohide>
+        <Toast.Header closeButton style={{ backgroundColor: '#5e4b8b', color: '#fff' }}>
+          <strong className="me-auto">Conflito de Horário</strong>
+        </Toast.Header>
+        <Toast.Body style={{ backgroundColor: '#7c3aed', color: '#fff' }}>
+          {toastMessage}
+        </Toast.Body>
+      </Toast>
       </ToastContainer>
     </div>
   );

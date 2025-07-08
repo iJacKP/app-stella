@@ -15,3 +15,21 @@
   transform: translateY(-2px) scale(1.03);
   box-shadow: 0 4px 16px 0 rgba(44,35,77,0.10);
 }
+
+.toast-purple {
+  background-color: #7c3aed !important; /* seu roxo principal */
+  color: #fff !important;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.toast-purple .toast-header {
+  background-color: #5e4b8b !important; /* roxo mais escuro */
+  color: #fff !important;
+  border-bottom: none;
+}
+
+.toast-purple .toast-body {
+  background-color: #7c3aed !important;
+  color: #fff !important;
+}
