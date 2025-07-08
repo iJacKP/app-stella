@@ -1,37 +1,17 @@
-th{
-    margin-right: 1rem !important;
-    padding: 1rem 3rem !important;
-    text-align: center !important;
-
-}
-td{
-    padding: 0.5rem !important;
-    width: 10rem !important;
-    padding-bottom: 1rem !important;
-
-}
-td{
-    font-size: 12px;
-    padding-bottom: 0.5rem !important;
-    width: initial;
-    text-align: center !important;
-    height: 4rem !important;
-    min-height: 2rem!important;
-   
-    font-weight: 600 !important;
-    margin-left: 10px !important;
-
-}
-tr{
-    padding-bottom: 5px !important;
+.export-buttons .pdf-btn,
+.export-buttons .ics-btn {
+  background: #2A2356 !important;
+  color: #fff !important;
+  border: none;
+  transition: background 0.2s, transform 0.15s;
 }
 
-.horas{
-    padding: 0 !important;
-}
-.btn:hover{
-    transform: rotate(5deg) !important;
-} 
-.btn{
-    border: none !important;
+.export-buttons .pdf-btn:hover,
+.export-buttons .ics-btn:hover,
+.export-buttons .pdf-btn:focus,
+.export-buttons .ics-btn:focus {
+  background: #5c4ca5 !important; /* tom mais escuro no hover */
+  color: #fff !important;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 16px 0 rgba(44,35,77,0.10);
 }

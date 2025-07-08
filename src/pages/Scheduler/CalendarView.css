@@ -1,0 +1,83 @@
+.calendar-wrapper {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.fc .fc-toolbar {
+  background-color: #2A2356;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.fc .fc-button {
+  background-color: #5e4b8b;
+  border: none;
+  color: #fff;
+}
+
+.fc .fc-button:hover {
+  background-color: #7a64b5;
+}
+
+.fc-v-event, .fc .fc-v-event,
+.fc-event, .fc .fc-event {
+  background: #2c234d !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  box-sizing: border-box;
+  height: 100% !important;
+  min-height: 24px;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.fc-event-title, .fc .fc-event-title,
+.fc-event-time, .fc .fc-event-time,
+.fc-event-main, .fc .fc-event-main {
+  color: #fff !important;
+  font-size: 1rem;
+  font-weight: 500;
+  white-space: pre-line;
+  text-align: center;
+  height: 100% !important;
+}
+
+/* Remove qualquer sombra ou borda extra */
+.fc-event-main-frame, .fc .fc-event-main-frame {
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Cabeçalho dos dias da semana */
+.fc-col-header-cell-cushion,
+.fc .fc-col-header-cell-cushion {
+  color: #2A2356 !important;
+  font-weight: bold;
+}
+
+/* Números dos dias no topo */
+.fc-daygrid-day-number,
+.fc .fc-daygrid-day-number {
+  color: #2A2356 !important;
+  font-weight: bold;
+}
+
+.fc-day-today,
+.fc .fc-day-today {
+  background-color: #ede9fe !important;
+}
+
+.btn-purple {
+  background: #7c3aed !important;
+  color: #fff !important;
+  border: none;
+  transition: background 0.2s;
+}
+.btn-purple:hover, .btn-purple:focus {
+  background: #5b21b6 !important;
+  color: #fff !important;
+}
