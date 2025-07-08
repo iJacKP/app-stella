@@ -5,6 +5,8 @@ import SubjectSelector from './SubjectSelector';
 import CalendarView from './CalendarView';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { FaFilePdf, FaCalendarAlt } from 'react-icons/fa';
+import './index.css';
 
 export function Scheduler() {
   const [selectedSubjects, setSelectedSubjects] = useState([]);
@@ -34,7 +36,7 @@ export function Scheduler() {
       );
 
       if (conflict) {
-        setToastMessage(`Conflito detectado entre "${subject.name}" e "${conflict.name}".`);
+        setToastMessage(`Conflito detectado entre "${subject.subjectCode} -${subject.name}" e "${conflict.subjectCode} ${conflict.name}".`);
         setShowToast(true);
         return;
       }
@@ -49,95 +51,94 @@ export function Scheduler() {
     return (start1 < end2) && (start2 < end1);
   }
 
-const handleExportPDF = () => {
-  const calendar = document.querySelector('.fc');
+  const handleExportPDF = () => {
+    const calendar = document.querySelector('.fc');
 
-  html2canvas(calendar, {
-    scale: 2,
-    useCORS: true
-  }).then((canvas) => {
-    const imgData = canvas.toDataURL('image/png');
+    html2canvas(calendar, {
+      scale: 2,
+      useCORS: true
+    }).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
 
-    const pdf = new jsPDF({
-      orientation: 'landscape',
-      unit: 'mm',
-      format: 'a4'
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'mm',
+        format: 'a4'
+      });
+
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+
+      const imgProps = {
+        width: canvas.width,
+        height: canvas.height
+      };
+
+      const ratio = Math.min(pageWidth / imgProps.width, pageHeight / imgProps.height);
+      const imgWidth = imgProps.width * ratio;
+      const imgHeight = imgProps.height * ratio;
+
+      const marginX = (pageWidth - imgWidth) / 2;
+      const marginY = (pageHeight - imgHeight) / 2;
+
+      pdf.addImage(imgData, 'PNG', marginX, marginY, imgWidth, imgHeight);
+      pdf.save('grade_horaria.pdf');
     });
-
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
-
-    // mantém proporção do calendário dentro da folha A4
-    const imgProps = {
-      width: canvas.width,
-      height: canvas.height
-    };
-
-    const ratio = Math.min(pageWidth / imgProps.width, pageHeight / imgProps.height);
-    const imgWidth = imgProps.width * ratio;
-    const imgHeight = imgProps.height * ratio;
-
-    const marginX = (pageWidth - imgWidth) / 2;
-    const marginY = (pageHeight - imgHeight) / 2;
-
-    pdf.addImage(imgData, 'PNG', marginX, marginY, imgWidth, imgHeight);
-    pdf.save('grade_horaria.pdf');
-  });
-};
-
-  const handleExportICS = () => {
-  const convertDayToRRule = {
-    "Domingo": 'SU',
-    "Segunda-feira": 'MO',
-    "Terça-feira": 'TU',
-    "Quarta-feira": 'WE',
-    "Quinta-feira": 'TH',
-    "Sexta-feira": 'FR',
-    "Sábado": 'SA'
   };
 
-  const icsLines = [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'CALSCALE:GREGORIAN',
-    'METHOD:PUBLISH'
-  ];
+  const handleExportICS = () => {
+    const convertDayToRRule = {
+      "Domingo": 'SU',
+      "Segunda-feira": 'MO',
+      "Terça-feira": 'TU',
+      "Quarta-feira": 'WE',
+      "Quinta-feira": 'TH',
+      "Sexta-feira": 'FR',
+      "Sábado": 'SA'
+    };
 
-  selectedSubjects.forEach(subject => {
-    subject.schedule.forEach(entry => {
-      const uid = `${subject._id}-${entry.day}`;
-      const dayRRule = convertDayToRRule[entry.day];
-      const dtstart = `${subject.startDate.replace(/-/g, '')}T${entry.startTime.replace(':', '')}00`;
-      const dtend = `${subject.startDate.replace(/-/g, '')}T${entry.endTime.replace(':', '')}00`;
-      const until = `${subject.endDate.replace(/-/g, '')}T235900Z`;
+    const icsLines = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH'
+    ];
 
-      icsLines.push(
-        'BEGIN:VEVENT',
-        `UID:${uid}`,
-        `SUMMARY:${subject.name}`,
-        `DTSTART;TZID=America/Fortaleza:${dtstart}`,
-        `DTEND;TZID=America/Fortaleza:${dtend}`,
-        `RRULE:FREQ=WEEKLY;BYDAY=${dayRRule};UNTIL=${until}`,
-        `DESCRIPTION:${subject.description} – ${subject.credits} créditos (${subject.workload})`,
-        `CATEGORIES:${subject.track}`,
-        'END:VEVENT'
-      );
+    selectedSubjects.forEach(subject => {
+      subject.schedule.forEach(entry => {
+        const uid = `${subject._id}-${entry.day}`;
+        const dayRRule = convertDayToRRule[entry.day];
+        const dtstart = `${subject.startDate.replace(/-/g, '')}T${entry.startTime.replace(':', '')}00`;
+        const dtend = `${subject.startDate.replace(/-/g, '')}T${entry.endTime.replace(':', '')}00`;
+        const until = `${subject.endDate.replace(/-/g, '')}T235900Z`;
+
+        icsLines.push(
+          'BEGIN:VEVENT',
+          `UID:${uid}`,
+          `SUMMARY:${subject.name}`,
+          `DTSTART;TZID=America/Fortaleza:${dtstart}`,
+          `DTEND;TZID=America/Fortaleza:${dtend}`,
+          `RRULE:FREQ=WEEKLY;BYDAY=${dayRRule};UNTIL=${until}`,
+          `DESCRIPTION:${subject.description} – ${subject.credits} créditos (${subject.workload})`,
+          `CATEGORIES:${subject.track}`,
+          'END:VEVENT'
+        );
+      });
     });
-  });
 
-  icsLines.push('END:VCALENDAR');
+    icsLines.push('END:VCALENDAR');
 
-  const blob = new Blob([icsLines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = 'grade_horaria.ics';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
+    const blob = new Blob([icsLines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'grade_horaria.ics';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   const body = (
-  <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title>{modalSubject?.subjectCode} - {modalSubject?.name}</Modal.Title>
@@ -157,30 +158,47 @@ const handleExportPDF = () => {
           </p>
         </Modal.Body>
       </Modal>
-      <h2 className="mb-4">Organize sua Grade Horária</h2>
+
       <Row style={{ flex: 1, overflow: 'hidden' }}>
         <Col md={4}>
-          <SubjectSelector onSelect={handleSelect} onOpenDetails={openModal} selectedSubjects={selectedSubjects}/>
+          <SubjectSelector
+            onSelect={handleSelect}
+            onOpenDetails={openModal}
+            selectedSubjects={selectedSubjects}
+          />
         </Col>
         <Col md={8} className="d-flex flex-column" style={{ height: '100%' }}>
           <CalendarView selectedSubjects={selectedSubjects} />
-          <Button className="mt-3" onClick={handleExportPDF}>
-            Exportar em PDF
-          </Button>
-          <Button className="mt-3 ms-2" onClick={handleExportICS}>
-            Exportar em ICS
-          </Button>
+          <div className="export-buttons mt-3 d-flex gap-3">
+            <Button
+              className="export-btn pdf-btn btn-purple w-100"
+              style={{ fontWeight: 'bold', fontSize: '1.1rem', height: '48px' }}
+              onClick={handleExportPDF}
+            >
+              <FaFilePdf className="me-2" /> Exportar como PDF
+            </Button>
+            <Button
+              className="export-btn ics-btn btn-purple w-100"
+              style={{ fontWeight: 'bold', fontSize: '1.1rem', height: '48px' }}
+              onClick={handleExportICS}
+            >
+              <FaCalendarAlt className="me-2" /> Exportar como .ICS
+            </Button>
+          </div>
         </Col>
       </Row>
+
       <ToastContainer position="top-end" className="p-3" style={{ zIndex: 9999 }}>
-        <Toast bg="danger" show={showToast} onClose={() => setShowToast(false)} delay={4000} autohide>
-          <Toast.Header>
-            <strong className="me-auto">Conflito de Horário</strong>
-          </Toast.Header>
-          <Toast.Body className="text-white">{toastMessage}</Toast.Body>
-        </Toast>
+      <Toast className="toast-purple" show={showToast} onClose={() => setShowToast(false)} delay={4000} autohide>
+        <Toast.Header closeButton style={{ backgroundColor: '#5e4b8b', color: '#fff' }}>
+          <strong className="me-auto">Conflito de Horário</strong>
+        </Toast.Header>
+        <Toast.Body style={{ backgroundColor: '#7c3aed', color: '#fff' }}>
+          {toastMessage}
+        </Toast.Body>
+      </Toast>
       </ToastContainer>
-</div>
+    </div>
   );
 
   return (

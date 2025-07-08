@@ -1,37 +1,35 @@
-th{
-    margin-right: 1rem !important;
-    padding: 1rem 3rem !important;
-    text-align: center !important;
-
-}
-td{
-    padding: 0.5rem !important;
-    width: 10rem !important;
-    padding-bottom: 1rem !important;
-
-}
-td{
-    font-size: 12px;
-    padding-bottom: 0.5rem !important;
-    width: initial;
-    text-align: center !important;
-    height: 4rem !important;
-    min-height: 2rem!important;
-   
-    font-weight: 600 !important;
-    margin-left: 10px !important;
-
-}
-tr{
-    padding-bottom: 5px !important;
+.export-buttons .pdf-btn,
+.export-buttons .ics-btn {
+  background: #2A2356 !important;
+  color: #fff !important;
+  border: none;
+  transition: background 0.2s, transform 0.15s;
 }
 
-.horas{
-    padding: 0 !important;
+.export-buttons .pdf-btn:hover,
+.export-buttons .ics-btn:hover,
+.export-buttons .pdf-btn:focus,
+.export-buttons .ics-btn:focus {
+  background: #5c4ca5 !important; /* tom mais escuro no hover */
+  color: #fff !important;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 16px 0 rgba(44,35,77,0.10);
 }
-.btn:hover{
-    transform: rotate(5deg) !important;
-} 
-.btn{
-    border: none !important;
+
+.toast-purple {
+  background-color: #7c3aed !important; /* seu roxo principal */
+  color: #fff !important;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.toast-purple .toast-header {
+  background-color: #5e4b8b !important; /* roxo mais escuro */
+  color: #fff !important;
+  border-bottom: none;
+}
+
+.toast-purple .toast-body {
+  background-color: #7c3aed !important;
+  color: #fff !important;
 }
