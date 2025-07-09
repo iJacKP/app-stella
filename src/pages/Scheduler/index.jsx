@@ -159,15 +159,15 @@ export function Scheduler() {
         </Modal.Body>
       </Modal>
 
-      <Row style={{ flex: 1, overflow: 'hidden' }}>
-        <Col md={4}>
+      <Row style={{ flex: 1, overflow: 'hidden'}}>
+        <Col md={4} className="d-flex flex-column" style={{ height: '100%'}}>
           <SubjectSelector
             onSelect={handleSelect}
             onOpenDetails={openModal}
             selectedSubjects={selectedSubjects}
           />
         </Col>
-        <Col md={8} className="d-flex flex-column" style={{ height: '100%' }}>
+        <Col md={8} className="d-flex flex-column" style={{ height: '100%'}}>
           <CalendarView selectedSubjects={selectedSubjects} />
           <div className="export-buttons mt-3 d-flex gap-3">
             <Button
