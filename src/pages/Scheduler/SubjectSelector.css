@@ -1,11 +1,16 @@
 .subject-selector {
   background-color: #2A2356;
   color: #fff;
-  height: 90%;
+  max-height: 90vh;
   padding: 15px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+}
+
+.subject-list {
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .subject-selector .title {
@@ -19,15 +24,6 @@
   color: #000;
 }
 
-.subject-list {
-  max-height: 70vh;
-  overflow-y: auto;
-}
-
-.subject-list {
-  max-height: 80vh;
-  overflow-y: auto;
-}
 
 .subject-card {
   background-color: rgba(255,255,255,0.93) !important;
