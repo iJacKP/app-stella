@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getToken } from "./auth";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/api/" 
+  baseURL: "https://api-stella-800g.onrender.com/api/" 
 });
 
 // interceptor de autenticação
