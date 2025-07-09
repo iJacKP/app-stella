@@ -9,10 +9,10 @@ import { Trails } from "../pages/Trails"
 import { Subjects } from "../pages/Subjects"
 import { Scheduler } from "../pages/Scheduler/index.jsx"
 import { Information } from "../pages/Information"
-import { SistemasMultimidia } from "../pages/Trails/SistemasMultimidia"
-import { Jogos } from "../pages/Trails/Jogos"
-import { AudioVisual } from "../pages/Trails/AudioVisual"
-import { DesignInterativo } from "../pages/Trails/DesignInterativo"
+import AudioVisual from "../pages/Trails/AudioVisual/index.jsx";
+import DesignInterativo from "../pages/Trails/DesignInterativo/index.jsx";
+import Jogos from "../pages/Trails/Jogos/index.jsx";
+import SistemasMultimidia from "../pages/Trails/SistemasMultimidia/index.jsx";
 import { EditSubject } from "../pages/admin/EditSubject"
 
 

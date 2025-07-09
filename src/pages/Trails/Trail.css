@@ -1,0 +1,40 @@
+.subject-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.subject-card {
+  flex: 1 1 calc(33.333% - 15px); /* 3 cards por linha em desktop */
+  min-width: 250px;
+  cursor: pointer;
+  border: none;
+  color: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* sombra fixa leve */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.subject-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* sombra mais intensa no hover */
+}
+
+.color-0 { background: #7c3aed; }
+.color-1 { background: #5b21b6; }
+.color-2 { background: #4c1d95; }
+.color-3 { background: #8b5cf6; }
+.color-4 { background: #a78bfa; }
+
+.professor-pill {
+  background-color: #ede9fe;
+  color: #5b21b6;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin: 5px;
+  display: inline-block;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
