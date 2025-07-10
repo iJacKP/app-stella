@@ -49,7 +49,6 @@ export function Home() {
           
                 if (user) {
     
-                    console.log("*-*",user)
                     setUser(user)
     
                 } 
