@@ -139,3 +139,19 @@
 span {
     margin-left: 16px;
 }
+
+.navbar-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+}
+
+.navbar-icon {
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.navbar-icon:hover {
+    transform: scale(1.15);
+    color: #C112B0; 
+}

@@ -9,10 +9,15 @@
 }
 
 .subject-list {
-  max-height: 90vh;
+  max-height: 75vh;
   overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
+.subject-list::-webkit-scrollbar {
+  display: none;
+}
 .subject-selector .title {
   font-size: 1.4rem;
   font-weight: 600;
@@ -35,3 +40,4 @@
 .subject-card .card-text {
   color: #2A2356 !important;
 }
+

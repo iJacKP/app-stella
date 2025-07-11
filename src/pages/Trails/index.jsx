@@ -34,7 +34,7 @@ const body =  <>
             </Card.Text>
             </Card.Body>
             <Card.Footer>
-            <Link to='/sistemas_multimidia' className='text-decoration-none d-flex align-items-center flex-column' style={{width:'100%',color:'#2A2356'}}> Saiba mais </Link>
+            <Link to='/trilhas/sistemas' className='text-decoration-none d-flex align-items-center flex-column' style={{width:'100%',color:'#2A2356'}}> Saiba mais </Link>
             </Card.Footer>
         </Card>
 
@@ -58,7 +58,7 @@ const body =  <>
             </Card.Text>
             </Card.Body>
             <Card.Footer>
-            <Link to='/design_interativo' className='text-decoration-none d-flex align-items-center flex-column' style={{width:'100%',color:'#2A2356'}}> Saiba mais </Link>
+            <Link to='/trilhas/design' className='text-decoration-none d-flex align-items-center flex-column' style={{width:'100%',color:'#2A2356'}}> Saiba mais </Link>
             </Card.Footer>
         </Card>
 
@@ -85,7 +85,7 @@ const body =  <>
             </Card.Text>
             </Card.Body>
             <Card.Footer>
-            <Link to='/audiovisual' className='text-decoration-none d-flex align-items-center flex-column' style={{width:'100%',color:'#2A2356'}}> Saiba mais </Link>
+            <Link to='/trilhas/audiovisual' className='text-decoration-none d-flex align-items-center flex-column' style={{width:'100%',color:'#2A2356'}}> Saiba mais </Link>
             </Card.Footer>
         </Card>
 
@@ -111,7 +111,7 @@ const body =  <>
             </Card.Text>
             </Card.Body>
             <Card.Footer>
-            <Link to='/jogos' className='text-decoration-none d-flex align-items-center flex-column' style={{width:'100%',color:'#2A2356'}}> Saiba mais </Link>
+            <Link to='/trilhas/jogos' className='text-decoration-none d-flex align-items-center flex-column' style={{width:'100%',color:'#2A2356'}}> Saiba mais </Link>
             </Card.Footer>
         </Card>
 
