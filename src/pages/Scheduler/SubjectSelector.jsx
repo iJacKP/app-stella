@@ -12,7 +12,12 @@ export default function SubjectSelector({ onSelect, onOpenDetails, selectedSubje
   useEffect(() => {
     setLoading(true);
     getAllSubjects()
-      .then(setSubjects)
+      .then((data) => {
+        const uniqueSubjects = Array.from(
+          new Map(data.map((subject) => [subject.subjectCode, subject])).values()
+        );
+        setSubjects(uniqueSubjects);
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -63,36 +68,40 @@ export default function SubjectSelector({ onSelect, onOpenDetails, selectedSubje
           </div>
         ) : filteredSubjects.length > 0 ? (
           filteredSubjects.map(subject => (
-            <Card key={subject._id} className="subject-card mb-3 shadow-sm">
-              <Card.Body>
-                <Form.Check
-                  type="checkbox"
-                  className="subject-checkbox"
-                  label={
-                    <div>
-                      <strong>{subject.subjectCode} - {subject.name}</strong><br />
-                      <small>Trilha: {subject.track}</small><br />
-                      <small>Professor: {subject.teacher}</small><br />
-                      <small>
-                        {subject.schedule.map(s =>
-                          `${s.day} (${s.startTime} - ${s.endTime})`
-                        ).join(', ')}
-                      </small>
-                    </div>
-                  }
-                  checked={selectedSubjects.some(s => s._id === subject._id)}
-                  onChange={(e) => onSelect(subject, e.target.checked)}
-                />
-                <Button
-                  variant="link"
-                  size="sm"
-                  className="info-btn"
-                  onClick={() => onOpenDetails(subject)}
-                >
-                  + Mais informações
-                </Button>
-              </Card.Body>
-            </Card>
+          <Card key={subject._id} className="subject-card mb-3 shadow-sm">
+            <Card.Body>
+              <Form.Check
+                type="checkbox"
+                className="subject-checkbox"
+                id={`subject-${subject._id}`} 
+                checked={selectedSubjects.some(s => s._id === subject._id)}
+                onChange={(e) => onSelect(subject, e.target.checked)}
+                label={
+                  <label
+                    htmlFor={`subject-${subject._id}`}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <strong>{subject.subjectCode} - {subject.name}</strong><br />
+                    <small>Trilha: {subject.track}</small><br />
+                    <small>Professor: {subject.teacher}</small><br />
+                    <small>
+                      {subject.schedule.map(s =>
+                        `${s.day} (${s.startTime} - ${s.endTime})`
+                      ).join(', ')}
+                    </small>
+                  </label>
+                }
+              />
+              <Button
+                variant="link"
+                size="sm"
+                className="info-btn"
+                onClick={() => onOpenDetails(subject)}
+              >
+                + Mais informações
+              </Button>
+            </Card.Body>
+          </Card>
           ))
         ) : (
           <div className="text-muted text-center">Nenhuma disciplina encontrada.</div>

@@ -1,32 +1,36 @@
-import { Container, Row, Card, Button, Modal } from "react-bootstrap";
+import { Container, Row, Card, Button, Modal, Spinner } from "react-bootstrap";
 import Sidebar from "../../components/SideBar";
 import api from "../../../services/api";
 import { useState, useEffect } from "react";
-import "./Trail.css"; // Novo CSS para os cards
+import "./Trail.css";
 
 export default function Trail({ track, title, description, objective }) {
   const [subjects, setSubjects] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [show, setShow] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState(null);
 
   useEffect(() => {
-    // Busca disciplinas da trilha
     api.get("/subject")
       .then((response) => {
         const filteredSubjects = response.data.filter(
           (subject) => subject.track === track
         );
 
-        // Remove disciplinas duplicadas pelo _id
-        const uniqueSubjects = Array.from(
-          new Map(filteredSubjects.map((s) => [s._id, s])).values()
-        );
+        const uniqueSubjectsMap = new Map();
+        filteredSubjects.forEach((s) => {
+          if (!uniqueSubjectsMap.has(s.subjectCode)) {
+            uniqueSubjectsMap.set(s.subjectCode, s);
+          }
+        });
+        const uniqueSubjects = Array.from(uniqueSubjectsMap.values());
 
         setSubjects(uniqueSubjects);
       })
       .catch((error) => {
         console.error("Erro ao buscar disciplinas:", error);
-      });
+      })
+      .finally(() => setLoading(false));
   }, [track]);
 
   const handleShowModal = (subject) => {
@@ -36,7 +40,6 @@ export default function Trail({ track, title, description, objective }) {
 
   const handleCloseModal = () => setShow(false);
 
-  // Professores únicos
   const uniqueProfessors = [...new Set(subjects.map((s) => s.teacher))];
 
   const body = (
@@ -61,26 +64,33 @@ export default function Trail({ track, title, description, objective }) {
           Estas disciplinas devem ter oferta regular para permitir a manutenção mínima da trilha. Elas são as mais alinhadas com os objetivos da trilha.
         </p>
 
-        <div className="subject-cards">
-          {subjects.map((subject, index) => (
-            <Card
-              key={subject._id}
-              className={`subject-card color-${index % 5}`}
-              onClick={() => handleShowModal(subject)}
-            >
-              <Card.Body>
-                <Card.Title>{subject.subjectCode} - {subject.name}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                  {subject.teacher}
-                </Card.Subtitle>
-                <Card.Text>
-                  {subject.description.substring(0, 80)}...
-                </Card.Text>
-                <Button variant="light" size="sm">+ Mais informações</Button>
-              </Card.Body>
-            </Card>
-          ))}
-        </div>
+        {loading ? (
+          <div className="d-flex justify-content-center align-items-center my-5">
+            <Spinner animation="border" variant="primary" role="status" />
+            <span className="ms-2">Carregando disciplinas...</span>
+          </div>
+        ) : (
+          <div className="subject-cards">
+            {subjects.map((subject, index) => (
+              <Card
+                key={subject._id}
+                className={`subject-card color-${index % 5}`}
+                onClick={() => handleShowModal(subject)}
+              >
+                <Card.Body>
+                  <Card.Title>{subject.subjectCode} - {subject.name}</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    {subject.teacher}
+                  </Card.Subtitle>
+                  <Card.Text>
+                    {subject.description.substring(0, 80)}...
+                  </Card.Text>
+                  <Button variant="light" size="sm">+ Mais informações</Button>
+                </Card.Body>
+              </Card>
+            ))}
+          </div>
+        )}
 
         {/* Modal com detalhes */}
         <Modal show={show} onHide={handleCloseModal} centered size="lg">

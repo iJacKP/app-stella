@@ -51,8 +51,6 @@ export function Login() {
       }
 
       if( emailUser && passwordUser ) {
-
-        console.log(emailUser,passwordUser)
         const { data: {msg, user, token }, AxiosError } = await api.post('/auth/login', {
           email: emailUser,
           password: passwordUser

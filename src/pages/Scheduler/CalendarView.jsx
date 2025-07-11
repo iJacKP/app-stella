@@ -10,7 +10,6 @@ export default function CalendarView({ selectedSubjects }) {
 
   selectedSubjects.forEach(subject => {
     subject.schedule.forEach(entry => {
-      console.log(subject, "pois toma carai")
       const dayNum = convertDayToRRule(entry.day);
       events.push({
         title: `${entry.startTime} - ${entry.endTime}\n${subject.name}`, // mostra horário e nome
