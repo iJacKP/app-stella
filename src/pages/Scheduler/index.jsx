@@ -13,6 +13,7 @@ export function Scheduler() {
   const [showModal, setShowModal] = useState(false);
   const [modalSubject, setModalSubject] = useState(null);
   const [showToast, setShowToast] = useState(false);
+  const [toastTitle, setToastTitle] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
 
   const openModal = (subject) => {
@@ -37,6 +38,7 @@ export function Scheduler() {
 
       if (conflict) {
         setToastMessage(`Conflito detectado entre "${subject.subjectCode} -${subject.name}" e "${conflict.subjectCode} ${conflict.name}".`);
+        setToastTitle('Conflito de Horário');
         setShowToast(true);
         return;
       }
@@ -52,6 +54,11 @@ export function Scheduler() {
   }
 
   const handleExportPDF = () => {
+
+    setToastMessage(`Sua grade horária semanal está sendo baixada em formato .PDF e estará disponível em breve!.`);
+    setToastTitle('Download Iniciado!');
+    setShowToast(true);
+
     const calendar = document.querySelector('.fc');
 
     html2canvas(calendar, {
@@ -87,6 +94,11 @@ export function Scheduler() {
   };
 
   const handleExportICS = () => {
+
+    setToastMessage(`Seu calendário está sendo baixado em formato .ICS e em breve estará disponível para ser importado no seu calendário digital favorito!`);
+    setToastTitle('Download Iniciado!');
+    setShowToast(true);
+
     const convertDayToRRule = {
       "Domingo": 'SU',
       "Segunda-feira": 'MO',
@@ -191,7 +203,7 @@ export function Scheduler() {
       <ToastContainer position="top-end" className="p-3" style={{ zIndex: 9999 }}>
       <Toast className="toast-purple" show={showToast} onClose={() => setShowToast(false)} delay={4000} autohide>
         <Toast.Header closeButton style={{ backgroundColor: '#5e4b8b', color: '#fff' }}>
-          <strong className="me-auto">Conflito de Horário</strong>
+          <strong className="me-auto">{toastTitle}</strong>
         </Toast.Header>
         <Toast.Body style={{ backgroundColor: '#7c3aed', color: '#fff' }}>
           {toastMessage}
